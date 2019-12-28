@@ -12,42 +12,39 @@ rec_num = 30
 cwd = os.getcwd()  # 获取当前工作目录
 f_path = os.path.abspath(os.path.join(cwd, ".."))  # 获取上一级目录
 
-history_f = f_path + "/output/history.npy"
-similarity_f = f_path + "/output/similarity.npy"
+play_action_f = f_path + "/output/train_play_action.npy"
+similarity_f = f_path + "/output/similarity_rec.npy"
 
 
-history = np.load(history_f, allow_pickle=True).item()
+play_action = np.load(play_action_f, allow_pickle=True).item()
 
 similarity = np.load(similarity_f, allow_pickle=True).item()
 
 
-rec_file = f_path + "/output/rec.txt"
-rec_f = open(rec_file, 'w')  # 打开文件，如果文件不存在则创建它，该文件是存储最终的三元组
-
-data = f_path + "/output/rec.txt"
-fp = open(data, 'w')  # 打开文件，如果文件不存在则创建它，该文件是存储最终的三元组
-
-
-for u, u_his in history.items():
-    rec = dict()
-    for vid in u_his:
+item_based_rec_map = dict()
+# play_action: {2097129: set([(3701, 4), (3756, 3)]), 1048551: set([(3610, 4), (571, 3)])}
+# similarity：{2345: [(1905, 0.5), (2452, 0.3), (3938, 0.1)]}
+for u, u_play in play_action.items():
+    u_rec = dict()
+    for (vid, u_score) in u_play:
         if vid in similarity:
-            [score, vid_s] = similarity[vid]
-            for i in range(len(vid_s)):
-                if vid_s[i] in rec:
-                    rec[vid_s[i]] = rec[vid_s[i]] + score[i]
+            for (vid_s, vid_score) in similarity[vid]:
+                if vid_s in u_rec:
+                    u_rec[vid_s] = u_rec[vid_s] + u_score*vid_score
                 else:
-                    rec[vid_s[i]] = score[i]
-    if len(rec) >= rec_num:
-        sorted_list = sorted(rec.items(), key=lambda item: item[1], reverse=True)
+                    u_rec[vid_s] = u_score*vid_score
+    if len(u_rec) >= rec_num:
+        sorted_list = sorted(u_rec.items(), key=lambda item: item[1], reverse=True)
         res = sorted_list[:rec_num]
-        tmp = "" + u + ","
-        for j in range(len(res)-1):
-            tmp = tmp + res[j][0] + ","
-        tmp = tmp + res[len(res)-1][0] + "\n"
-        fp.write(tmp)
+        item_based_rec_map[u] = res
 
-fp.close()
+print(item_based_rec_map)
+
+item_based_rec_path = f_path + "/output/item_based_rec.npy"
+np.save(item_based_rec_path, item_based_rec_map)
+
+# item-based推荐的数据结构如下：
+# {u1: [(1905, 0.5), (2452, 0.3), (3938, 0.1)]}
 
 
 

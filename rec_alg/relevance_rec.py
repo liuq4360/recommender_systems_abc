@@ -8,7 +8,7 @@ import numpy as np
 from scipy.sparse import dok_matrix
 import heapq
 
-rec_num = 20
+rec_num = 30
 
 cwd = os.getcwd()  # 获取当前工作目录
 f_path = os.path.abspath(os.path.join(cwd, ".."))  # 获取上一级目录
@@ -94,12 +94,11 @@ print(video_num)
 
 
 def top_n_max(vector, n):
-    """给定一个数组，求该数组最大的n个值，及每个值对应的下标index.
-
-    Args:
-      vector: 输入的数值型数组，类型 <type 'numpy.ndarray'>
-      n: 输出最大值的个数
-
+    """
+    给定一个数组，求该数组最大的n个值，及每个值对应的下标index.
+    :param vector: 输入的数值型数组，类型 <type 'numpy.ndarray'>
+    :param n: 输出最大值的个数
+    :return: [[v1,v2,v3],[idx1,idx2,idx3]]
     """
 
     idx_ = heapq.nlargest(n, range(len(vector)), vector.take)
@@ -133,7 +132,7 @@ def cos_sim(vector_a, vector_b):
 
 cwd = os.getcwd()  # 获取当前工作目录
 f_path = os.path.abspath(os.path.join(cwd, ".."))  # 获取上一级目录
-data_f = f_path + "/output/similarity.npy"
+data_f = f_path + "/output/similarity_rec.npy"
 
 all_sim_map = dict()
 for v1 in range(video_num):
@@ -150,13 +149,18 @@ for v1 in range(video_num):
     original_vid = idx2vid_map[v1]
     sim = c[0]
     idx = c[1]
-    vid = np.array([idx2vid_map[k] for k in idx])
-    res = [sim.tolist(), vid.tolist()]
+    vid = [idx2vid_map[k] for k in idx]
+    res = zip(vid, sim)
     all_sim_map[original_vid] = res
 
+print(len(all_sim_map))
 print(all_sim_map)
 np.save(data_f, all_sim_map)
 
-read_dictionary = np.load(data_f, allow_pickle=True).item()
+#
+# read_dictionary = np.load(data_f, allow_pickle=True).item()
+#
+# print(len(read_dictionary))
 
-print(len(read_dictionary))
+# 相似推荐的数据结构如下：
+# {2345: [(1905, 0.5), (2452, 0.3), (3938, 0.1)]}

@@ -4,8 +4,10 @@
 # 将training_set转换为三元组(userid，videoid，score)
 
 import os
+import numpy as np
 
-N = 20  # 推荐的热门视频个数
+
+N = 30  # 推荐的热门视频个数
 
 cwd = os.getcwd()  # 获取当前工作目录
 f_path = os.path.abspath(os.path.join(cwd, ".."))  # 获取上一级目录
@@ -21,10 +23,10 @@ line = f_train.readline()   # 调用文件的 readline()方法
 while line:
 
     d = line.split(",")
-    video_id = d[1]
+    video_id = int(d[1])
     score = int(d[2])
 
-    if m.has_key(video_id):
+    if video_id in m:
         m[video_id] = m[video_id]+score
     else:
         m[video_id] = score
@@ -36,3 +38,13 @@ sorted_list = sorted(m.items(), key=lambda item: item[1], reverse=True)
 print(sorted_list[:N])
 
 f_train.close()
+
+
+hot_rec_map = {"hot": sorted_list[:N]}
+hot_path = f_path + "/output/hot_rec.npy"
+np.save(hot_path, hot_rec_map)
+
+# 最终的推荐结果的数据结构如下：
+# {"hot": [(1905, 564361), (2452, 462715), (3938, 448276)]}
+
+

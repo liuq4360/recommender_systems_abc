@@ -19,6 +19,7 @@ d = a.getrow(0).dot(b)
 a = np.array([1, 2, 3, 4, 5])
 b = np.array([2, 4, 6, 8, 9])
 
+
 c = set(a).intersection(set(b))
 
 
