@@ -50,7 +50,7 @@ def save_metadata(path, db):
 
 # 将热门推荐、相似推荐、item-based个性化推荐结果存于Redis中
 cwd = os.getcwd()  # 获取当前工作目录
-f_path = os.path.abspath(os.path.join(cwd, ".."))  # 获取上一级目录
+f_path = os.path.abspath(os.path.join(cwd, "../save2db"))  # 获取上一级目录
 
 hot_rec_p = f_path + "/output/hot_rec.npy"
 hot_rec_db = 0
