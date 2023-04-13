@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-# 基于item-based协同过滤的思路来为用户进行推荐
+# 基于item-based协同过滤的思路来为用户进行推荐，基于用户的协同过滤实现思路是类似的，本工程不再重复实现。
 
 import os
 import numpy as np

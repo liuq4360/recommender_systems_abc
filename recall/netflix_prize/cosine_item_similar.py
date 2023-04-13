@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-# 计算电影的相似电影
+# 计算电影的相似电影，该算法可以用于如下2个目的：
+# 1、可以用于详情页关联推荐的召回；
+# 2、也可以作为基于种子物品的相似性召回；
 
 import os
 import numpy as np
