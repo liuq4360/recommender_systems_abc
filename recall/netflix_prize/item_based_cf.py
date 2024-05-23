@@ -10,10 +10,10 @@ import numpy as np
 rec_num = 30
 
 cwd = os.getcwd()  # 获取当前工作目录
-f_path = os.path.abspath(os.path.join(cwd, ".."))  # 获取上一级目录
+f_path = os.path.abspath(os.path.join(cwd, "..", ".."))  # 获取上一级目录
 
-play_action_f = f_path + "/output/train_play_action.npy"
-similarity_f = f_path + "/output/similarity_rec.npy"
+play_action_f = f_path + "/output/netflix_prize/train_play_action.npy"
+similarity_f = f_path + "/output/netflix_prize/similarity_rec.npy"
 
 
 play_action = np.load(play_action_f, allow_pickle=True).item()
@@ -21,9 +21,9 @@ play_action = np.load(play_action_f, allow_pickle=True).item()
 similarity = np.load(similarity_f, allow_pickle=True).item()
 
 
-item_based_rec_map = dict()
 # play_action: {2097129: set([(3701, 4), (3756, 3)]), 1048551: set([(3610, 4), (571, 3)])}
 # similarity：{2345: [(1905, 0.5), (2452, 0.3), (3938, 0.1)]}
+item_based_rec_map = dict()
 for u, u_play in play_action.items():
     u_rec = dict()
     for (vid, u_score) in u_play:
@@ -40,7 +40,7 @@ for u, u_play in play_action.items():
 
 print(item_based_rec_map)
 
-item_based_rec_path = f_path + "/output/item_based_rec.npy"
+item_based_rec_path = f_path + "/output/netflix_prize/item_based_rec.npy"
 np.save(item_based_rec_path, item_based_rec_map)
 
 # item-based推荐的数据结构如下：

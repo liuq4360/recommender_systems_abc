@@ -13,9 +13,9 @@ import heapq
 rec_num = 30
 
 cwd = os.getcwd()  # 获取当前工作目录
-f_path = os.path.abspath(os.path.join(cwd, ".."))  # 获取上一级目录
+f_path = os.path.abspath(os.path.join(cwd, "..", ".."))  # 获取上一级目录
 
-train = f_path + "/output/train.txt"
+train = f_path + "/output/netflix_prize/train.txt"
 
 f_train = open(train)  # 返回一个文件对象
 
@@ -70,7 +70,7 @@ i = 0
 while line:
     if i % 100 == 0:
         print(i)
-        i = i + 1
+    i = i + 1
     d = line.split(",")
     user_id = int(d[0])
     video_id = int(d[1])
@@ -133,12 +133,12 @@ def cos_sim(vector_a, vector_b):
 
 
 cwd = os.getcwd()  # 获取当前工作目录
-f_path = os.path.abspath(os.path.join(cwd, ".."))  # 获取上一级目录
-data_f = f_path + "/output/similarity_rec.npy"
+f_path = os.path.abspath(os.path.join(cwd, "..", ".."))  # 获取上一级目录
+data_f = f_path + "/output/netflix_prize/similarity_rec.npy"
 
 all_sim_map = dict()
 for v1 in range(video_num):
-    vec1 = Mat_csr.getrow(v1)
+    vec1 = Mat_csr.getrow(v1)   # Mat_csr 是用户行为的稀疏矩阵，即 csr_matrix
     vec = np.zeros(video_num)
     for v2 in range(video_num):
         if v1 == v2:  # 向量自己与自己的相似度为1，要排除在外

@@ -7,12 +7,12 @@ import os
 import random
 
 cwd = os.getcwd()  # 获取当前工作目录
-f_path = os.path.abspath(os.path.join(cwd, ".."))
+f_path = os.path.abspath(os.path.join(cwd, "..", ".."))
 
-data = f_path + "/output/data.txt"
+data = f_path + "/output/netflix_prize/data.txt"
 
-train = f_path + "/output/train.txt"
-test = f_path + "/output/test.txt"
+train = f_path + "/output/netflix_prize/train.txt"
+test = f_path + "/output/netflix_prize/test.txt"
 
 f_train = open(train, 'w')
 f_test = open(test, 'w')

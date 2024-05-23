@@ -24,7 +24,7 @@ def user_action_to_map(source_path, store_path):
     while line:
         if i % 100 == 0:
             print(i)
-            i = i + 1
+        i = i + 1
         d = line.split(",")
         user_id = int(d[0])
         video_id = int(d[1])
@@ -48,13 +48,13 @@ def user_action_to_map(source_path, store_path):
 
 
 cwd = os.getcwd()  # 获取当前工作目录
-f_path = os.path.abspath(os.path.join(cwd, ".."))  # 获取上一级目录
+f_path = os.path.abspath(os.path.join(cwd, "..", ".."))  # 获取上一级目录
 
-train_path = f_path + "/output/train.txt"
-test_path = f_path + "/output/test.txt"
+train_path = f_path + "/output/netflix_prize/train.txt"
+test_path = f_path + "/output/netflix_prize/test.txt"
 
-train_store_path = f_path + "/output/train_play_action.npy"
-test_store_path = f_path + "/output/test_play_action.npy"
+train_store_path = f_path + "/output/netflix_prize/train_play_action.npy"
+test_store_path = f_path + "/output/netflix_prize/test_play_action.npy"
 
 user_action_to_map(train_path, train_store_path)
 user_action_to_map(test_path, test_store_path)

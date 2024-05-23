@@ -7,9 +7,9 @@ import os
 import numpy as np
 
 cwd = os.getcwd()  # 获取当前工作目录
-f_path = os.path.abspath(os.path.join(cwd, ".."))
+f_path = os.path.abspath(os.path.join(cwd, "..", ".."))
 
-data = f_path + "/data/movie_titles.txt"
+data = f_path + "/data/netflix_prize/movie_titles.txt"
 
 f_data = open(data)        # 返回一个文件对象
 
@@ -26,7 +26,7 @@ while line:
 
 f_data.close()
 
-store_path = f_path + "/output/movie_metadata.npy"
+store_path = f_path + "/output/netflix_prize/movie_metadata.npy"
 np.save(store_path, metadata_map)
 
 print(metadata_map)
