@@ -1,7 +1,6 @@
 # recommender_systems_abc
 
-基于netflix prize开源数据集，从零开始构建热门推荐、相似推荐、item-based协同过滤算法，并离线评估算法的效果precision/recall，将推荐结果存于Redis，并通过flask构建推荐web服务。
+基于Netflix Prize & H&M 数据集来实现主流的推荐算法，包含各种召回（策略、标签、热门、矩阵分解、嵌入等）、排序算法（逻辑回归、FM、深度学习等）。
 
 
-github下载失败的同学可以通过百度网盘下载。链接及提取码如下：
-链接: https://pan.baidu.com/s/1zKbVlYgrsNqfqbvQsD8DJA 提取码: w79i
+本项目跟作者最新出版（2024年4月，邮电出版社图灵原创）的专著《推荐系统：算法、案例与大模型》（https://item.jd.com/14529516.html）配套使用。
